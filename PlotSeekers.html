@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plot Seekers | PlotHive</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>tailwind.config={theme:{extend:{colors:{primary:'#008751',secondary:'#FF9900'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+    <link rel="stylesheet" href="PlotSeekers.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    
+</head>
+<body class="bg-gray-50">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <div class="sidebar bg-white shadow-sm w-64 fixed h-full z-10">
+            <div class="p-4 flex items-center justify-between border-b border-gray-100">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 flex items-center justify-center bg-primary/10 rounded-full text-primary mr-3">
+                        <i class="ri-shield-user-line ri-xl"></i>
+                    </div>
+                    <span class="text-xl font-['Pacifico'] text-primary logo-text">PlotSeeker</span>
+                </div>
+                <button id="toggleSidebar" class="text-gray-500 hover:text-gray-700">
+                    <i class="ri-arrow-left-s-line"></i>
+                </button>
+            </div>
+            <div class="p-4">
+                <div class="flex items-center mb-8">
+                    <img id="sidebarProfileImage" src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20a%20young%20Nigerian%20male%20designer%2C%20clean%20background%2C%20friendly%20smile%2C%20professional%20attire&width=100&height=100&seq=3&orientation=squarish" alt="User" class="w-10 h-10 rounded-full object-cover mr-3 cursor-pointer" onclick="openProfileModal()">
+                    <div class="sidebar-text">
+                        <p class="font-medium text-gray-900" id="dashboardUserName">Oluwaseun A.</p>
+
+                    </div>
+                </div>
+                <nav>
+                    <ul class="space-y-2">
+                        <li>
+                            <a href="PlotSeekers.html" class="flex items-center p-3 rounded-lg bg-primary/10 text-primary font-medium">
+                                <i class="ri-briefcase-line ri-lg mr-3"></i>
+                                <span class="sidebar-text">Plot Seekers</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="Landing.html" class="flex items-center p-3 rounded-lg text-gray-700 hover:bg-gray-100 font-medium">
+                                <i class="ri-home-line ri-lg mr-3"></i>
+                                <span class="sidebar-text">Homepage</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex items-center p-3 rounded-lg text-gray-700 hover:bg-gray-100 font-medium" onclick="openSettingsModal()">
+                                <i class="ri-settings-3-line ri-lg mr-3"></i>
+                                <span class="sidebar-text">Settings</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-100">
+                <button onclick="showLogoutModal()" class="w-full flex items-center justify-center p-3 rounded-lg text-gray-700 hover:bg-gray-100 font-medium">
+                    <i class="ri-logout-box-r-line ri-lg mr-3"></i>
+                    <span class="sidebar-text">Logout</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content ml-64 flex-1 overflow-y-auto">
+            <!-- Top Navigation -->
+            <header class="bg-white shadow-sm py-3 px-6 flex items-center justify-between sticky top-0 z-10">
+                <div class="flex items-center">
+                    <button id="mobileMenuToggle" class="mr-4 text-gray-500 hover:text-gray-700 md:hidden">
+                        <i class="ri-menu-line ri-xl"></i>
+                    </button>
+                    <h1 class="text-xl font-bold text-gray-900">Find Plots</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="relative hidden md:block">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3">
+                            <i class="ri-search-line text-gray-400"></i>
+                        </div>
+                        <input type="text" class="w-64 pl-10 pr-4 py-2 border border-gray-200 rounded-button text-sm focus:border-primary transition-all duration-300" placeholder="Search Plots...">
+                    </div>
+                    <div class="relative">
+                        <button id="notificationBtn" class="p-2 text-gray-500 hover:text-gray-700 relative">
+                            <i class="ri-notification-3-line ri-lg"></i>
+                            <span class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
+                        </button>
+                    </div>
+                    <div class="relative">
+                        <button id="profileDropdownBtn" class="flex items-center space-x-2">
+                            <img id="headerProfileImage" src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20a%20young%20Nigerian%20male%20designer%2C%20clean%20background%2C%20friendly%20smile%2C%20professional%20attire&width=100&height=100&seq=3&orientation=squarish" 
+                                 alt="User" class="w-8 h-8 rounded-full object-cover cursor-pointer">
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Plot Content -->
+            <main class="p-6">
+                <!-- Hero Section -->
+                <div class="bg-gradient-to-r from-primary to-primary/90 text-white rounded-xl p-6 mb-6 animate__animated animate__fadeIn">
+                    <div class="flex flex-col md:flex-row items-center justify-between">
+                        <div class="mb-4 md:mb-0">
+                            <h2 class="text-2xl font-bold mb-2">Find Your Next Property</h2>
+                            <p class="text-white/90">Browse through hundreds of Plots that match your Pocket and expectation</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filters Section -->
+                <div class="bg-white p-6 rounded-xl shadow-sm mb-6 animate__animated animate__fadeIn animate__delay-1s">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                        <div class="flex-1">
+                            <h3 class="text-lg font-medium text-gray-900 mb-2">Filter Plots</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <div class="filter-card bg-gray-100 hover:bg-gray-200 px-3 py-1 rounded-full cursor-pointer transition-colors duration-300">
+                                    <span class="text-sm text-gray-700">Very Cheap</span>
+                                </div>
+                                <div class="filter-card bg-gray-100 hover:bg-gray-200 px-3 py-1 rounded-full cursor-pointer transition-colors duration-300">
+                                    <span class="text-sm text-gray-700">Cheap</span>
+                                </div>
+                                <div class="filter-card bg-gray-100 hover:bg-gray-200 px-3 py-1 rounded-full cursor-pointer transition-colors duration-300">
+                                    <span class="text-sm text-gray-700">Expensive</span>
+                                </div>
+                                <div class="filter-card bg-gray-100 hover:bg-gray-200 px-3 py-1 rounded-full cursor-pointer transition-colors duration-300">
+                                    <span class="text-sm text-gray-700">Very Expensive</span>
+                                </div>
+                                <div class="filter-card bg-gray-100 hover:bg-gray-200 px-3 py-1 rounded-full cursor-pointer transition-colors duration-300">
+                                    <span class="text-sm text-gray-700">Verified</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <select class="border border-gray-200 rounded-button px-4 py-2 text-sm focus:border-primary">
+                                <option>Sort by: Newest</option>
+                                <option>Sort by: High Fees</option>
+                                <option>Sort by: Low Fees</option>
+                                <option>Sort by: Rushed order</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Plot Listings -->
+                <div class="grid grid-cols-1 gap-6" id="plotsContainer">
+                    <!-- Plot Card 1 -->
+                    <div class="plot-card bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all duration-300">
+                        <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+                            <div class="flex items-start space-x-4">
+                                <div class="w-12 h-12 flex items-center justify-center bg-primary/10 text-primary rounded-xl">
+                                    <i class="ri-palette-line ri-xl"></i>
+                                </div>
+                                <div>   
+                                    <h3 class="text-lg font-bold text-gray-900">Mark Harrison</h3>
+                                    <p class="text-gray-600">Landed Properties at affordable Price</p>
+                                    <div class="flex flex-wrap gap-2 mt-2">
+                                        <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-full">Agent</span>
+                                        <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-full">Lagos</span>
+                                        <span class="px-2 py-1 bg-green-300 text-yellow-700 text-xs rounded-full verified-badge">Verified</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex flex-col items-end">
+                                <p class="text-xl font-bold text-primary">10%</p>
+                                <p class="text-sm text-gray-500">Max. Discount</p>
+                                <div class="mt-4 flex space-x-2">
+                                    <button class="px-4 py-2 bg-primary text-white rounded-button hover:bg-primary/90 transition-colors duration-300">
+                                        Proceed to Rent/Buy
+                                    </button>
+                                    <button class="px-4 py-2 border border-gray-200 text-gray-700 rounded-button hover:bg-gray-50 transition-colors duration-300">
+                                        Save
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
+                            <div class="flex items-center space-x-2">
+                                <i class="ri-time-line text-gray-400"></i>
+                                <span class="text-sm text-gray-500">Posted 2 hours ago</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i class="ri-user-line text-gray-400"></i>
+                                <span class="text-sm text-gray-500">5 Negotiaitions Ongoing   </span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i class="ri-calendar-line text-gray-400"></i>
+                                <span class="text-sm text-gray-500">Deadline for discount: Jun 30, 2026</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Plot Card 2 -->
+                    <div class="plot-card bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all duration-300">
+                        <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+                            <div class="flex items-start space-x-4">
+                                <div class="w-12 h-12 flex items-center justify-center bg-blue-100 text-blue-600 rounded-xl">
+                                    <i class="ri-code-line ri-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-bold text-gray-900">Musa Muhammed</h3>
+                                    <p class="text-gray-600">Ready to deliver properties worth the pay</p>
+                                    <div class="flex flex-wrap gap-2 mt-2">
+                                        <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-full">Owner</span>
+                                        <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-full">Kaduna</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex flex-col items-end">
+                                <div class="mt-4 flex space-x-2">
+                                    <button class="px-4 py-2 bg-primary text-white rounded-button hover:bg-primary/90 transition-colors duration-300">
+                                        Proceed to Rent/Buy
+                                    </button>
+                                    <button class="px-4 py-2 border border-gray-200 text-gray-700 rounded-button hover:bg-gray-50 transition-colors duration-300">
+                                        Save
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
+                            <div class="flex items-center space-x-2">
+                                <i class="ri-time-line text-gray-400"></i>
+                                <span class="text-sm text-gray-500">Posted 1 month ago</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i class="ri-user-line text-gray-400"></i>
+                                <span class="text-sm text-gray-500">0 Negotiaitions Ongoing</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ploy Card 3 -->
+                    <div class="plot-card bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all duration-300">
+                        <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+                            <div class="flex items-start space-x-4">
+                                <div class="w-12 h-12 flex items-center justify-center bg-purple-100 text-purple-600 rounded-xl">
+                                    <i class="ri-article-line ri-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-bold text-gray-900">Chukwuebuka Micheal</h3>
+                                    <p class="text-gray-600">Looking for a trusted agent?? Lets connect</p>
+                                    <div class="flex flex-wrap gap-2 mt-2">
+                                        <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-full">Agent</span>
+                                        <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-full">Abuja</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex flex-col items-end">
+                                <p class="text-xl font-bold text-primary">20%</p>
+                                <p class="text-sm text-gray-500">Discount</p>
+                                <div class="mt-4 flex space-x-2">
+                                    <button class="px-4 py-2 bg-primary text-white rounded-button hover:bg-primary/90 transition-colors duration-300">
+                                        Proceed to Rent/Buy
+                                    </button>
+                                    <button class="px-4 py-2 border border-gray-200 text-gray-700 rounded-button hover:bg-gray-50 transition-colors duration-300">
+                                        Save
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
+                            <div class="flex items-center space-x-2">
+                                <i class="ri-time-line text-gray-400"></i>
+                                <span class="text-sm text-gray-500">Posted 3 weeks ago</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i class="ri-user-line text-gray-400"></i>
+                                <span class="text-sm text-gray-500">1 Negotiaitions Ongoing</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i class="ri-calendar-line text-gray-400"></i>
+                                <span class="text-sm text-gray-500">Deadline for discount: Jul 10, 2026</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Plot Card 4 -->
+                    <div class="plot-card bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all duration-300">
+                        <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+                            <div class="flex items-start space-x-4">
+                                <div class="w-12 h-12 flex items-center justify-center bg-green-100 text-green-600 rounded-xl">
+                                    <i class="ri-video-line ri-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-bold text-gray-900">Samuel Ejiro</h3>
+                                    <p class="text-gray-600">Lets connect and get the best.</p>
+                                    <div class="flex flex-wrap gap-2 mt-2">
+                                        <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-full">Agent</span>
+                                        <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-full">Port Harcourt</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex flex-col items-end">
+                                <p class="text-xl font-bold text-primary">15%</p>
+                                <p class="text-sm text-gray-500">Discount</p>
+                                <div class="mt-4 flex space-x-2">
+                                    <button class="px-4 py-2 bg-primary text-white rounded-button hover:bg-primary/90 transition-colors duration-300">
+                                        Proceed to Rent/Buy
+                                    </button>
+                                    <button class="px-4 py-2 border border-gray-200 text-gray-700 rounded-button hover:bg-gray-50 transition-colors duration-300">
+                                        Save
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
+                            <div class="flex items-center space-x-2">
+                                <i class="ri-time-line text-gray-400"></i>
+                                <span class="text-sm text-gray-500">Posted 5 days ago</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i class="ri-user-line text-gray-400"></i>
+                                <span class="text-sm text-gray-500">21 Negotiaitions Ongoing</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i class="ri-calendar-line text-gray-400"></i>
+                                <span class="text-sm text-gray-500">Deadline for discount: Aug 1, 2026</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="flex justify-center mt-8">
+                    <nav class="inline-flex rounded-md shadow">
+                        <a href="#" class="px-3 py-2 rounded-l-md border border-gray-300 bg-white text-gray-500 hover:bg-gray-50">
+                            <i class="ri-arrow-left-s-line"></i>
+                        </a>
+                        <a href="#" class="px-4 py-2 border-t border-b border-gray-300 bg-white text-primary font-medium">
+                            1
+                        </a>
+                        <a href="#" class="px-4 py-2 border-t border-b border-gray-300 bg-white text-gray-500 hover:bg-gray-50">
+                            2
+                        </a>
+                        <a href="#" class="px-4 py-2 border-t border-b border-gray-300 bg-white text-gray-500 hover:bg-gray-50">
+                            3
+                        </a>
+                        <a href="#" class="px-3 py-2 rounded-r-md border border-gray-300 bg-white text-gray-500 hover:bg-gray-50">
+                            <i class="ri-arrow-right-s-line"></i>
+                        </a>
+                    </nav>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Logout Confirmation Modal -->
+    <div id="logoutConfirmModal" class="fixed inset-0 z-50 bg-black/50 hidden items-center justify-center animate__animated animate__fadeIn">
+        <div class="bg-white p-6 rounded-xl max-w-sm w-full text-center relative shadow-lg animate__animated animate__zoomIn">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">Confirm Logout</h2>
+            <p class="text-gray-600 mb-6">Are you sure you want to log out of your account?</p>
+            <div class="flex justify-center gap-4">
+                <button onclick="closeLogoutModal()" class="px-4 py-2 bg-gray-200 rounded-button hover:bg-gray-300 text-gray-700 transition-all duration-300">Cancel</button>
+                <button onclick="confirmLogout()" class="px-4 py-2 bg-red-600 text-white rounded-button hover:bg-red-700 transition-all duration-300">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="PlotSeekers.js"> </script>
+</body>
+</html>

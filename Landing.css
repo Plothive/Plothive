@@ -1,0 +1,101 @@
+:where([class^="ri-"])::before { content: "\f3c2"; }
+      body {
+      font-family: 'Inter', sans-serif;
+      }
+      .hero-section {
+      background-image: url('PlotHive.jpeg');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: right;
+      }
+      .search-input:focus {
+      outline: none;
+      }
+      .custom-checkbox {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid #d1d5db;
+      border-radius: 4px;
+      outline: none;
+      cursor: pointer;
+      position: relative;
+      }
+      
+      .typewriter-text {
+       border-right: 3px solid #0F5132; 
+       white-space: nowrap;
+       overflow: hidden;
+       display: inline-block;
+      }
+
+      @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: #0F5132; }
+      }
+    .typewriter-text {
+      border-right: 3px solid #0F5132;
+      white-space: nowrap;
+      overflow: hidden;
+      display: inline-block;
+      vertical-align: bottom;
+    }
+
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: #0F5132; }
+    }
+      .custom-checkbox:checked {
+      background-color: #0F5132;
+      border-color: #0F5132;
+      }
+      .custom-checkbox:checked::after {
+      content: '';
+      position: absolute;
+      left: 6px;
+      top: 2px;
+      width: 5px;
+      height: 10px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+      }
+      
+      /* Animation styles */
+      .fade-in {
+        animation: fadeIn 0.5s ease-in-out;
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      .slide-up {
+        animation: slideUp 0.6s ease-out;
+      }
+      @keyframes slideUp {
+        from { transform: translateY(20px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+      }
+      .pulse {
+        animation: pulse 2s infinite;
+      }
+      @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+      }
+      .rotate {
+        animation: rotate 2s linear infinite;
+      }
+      @keyframes rotate {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+      .hover-grow {
+        transition: transform 0.3s ease;
+      }
+      .hover-grow:hover {
+        transform: scale(1.03);
+      }
+
