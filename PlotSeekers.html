@@ -47,7 +47,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="index.html" class="flex items-center p-3 rounded-lg text-gray-700 hover:bg-gray-100 font-medium">
+                            <a href="Landing.html" class="flex items-center p-3 rounded-lg text-gray-700 hover:bg-gray-100 font-medium">
                                 <i class="ri-home-line ri-lg mr-3"></i>
                                 <span class="sidebar-text">Homepage</span>
                             </a>
@@ -361,7 +361,34 @@
         </div>
     </div>
 
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="fixed inset-0 z-50 bg-black/50 hidden items-center justify-center animate__animated animate__fadeIn">
+        <div class="bg-white p-6 rounded-xl max-w-md w-full shadow-lg animate__animated animate__zoomIn">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">Settings</h2>
+
+            <div class="space-y-4 text-left">
+                <div>
+                    <label class="block text-sm font-medium text-gray-600 mb-1">Profile Name</label>
+                    <input type="text" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Your name">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-600 mb-1">Email</label>
+                    <input type="email" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary" placeholder="you@email.com">
+                </div>
+            </div>
+
+            <div class="flex justify-end gap-3 mt-6">
+                <button onclick="closeSettingsModal()" class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300">
+                    Cancel
+                </button>
+                <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90">
+                    Save
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script src="PlotSeekers.js"> </script>
 </body>
-
 </html>
