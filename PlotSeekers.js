@@ -94,7 +94,7 @@ function viewOrder(orderId) {
             // Check authentication
             const email = localStorage.getItem("plothive_loggedIn");
             if (!email) {
-                window.location.href = "index.html";
+                window.location.href = "Landing.html";
                 return;
             }
             
@@ -143,7 +143,7 @@ function viewOrder(orderId) {
         
         function confirmLogout() {
             localStorage.removeItem("plothive_loggedIn");
-            window.location.href = "index.html";
+            window.location.href = "Landing.html";
         }
         
         // Function to handle Plot application
@@ -158,6 +158,19 @@ function viewOrder(orderId) {
 
         
 let plotsData = JSON.parse(localStorage.getItem('plothive_plots')) || [];
+
+
+function openSettingsModal() {
+    document.getElementById("settingsModal").classList.remove("hidden");
+    document.getElementById("settingsModal").classList.add("flex");
+}
+
+function closeSettingsModal() {
+    document.getElementById("settingsModal").classList.add("hidden");
+    document.getElementById("settingsModal").classList.remove("flex");
+}
+
+
 
 // Update the renderOrdersTable function to:
 function renderOrdersTable(orders, page = 1, itemsPerPage = 5) {
@@ -210,5 +223,4 @@ function renderOrdersTable(orders, page = 1, itemsPerPage = 5) {
 }
 
 // Initialize with plots data instead of ordersData
-
 renderOrdersTable(plotsData);
