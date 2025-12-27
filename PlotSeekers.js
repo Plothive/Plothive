@@ -94,7 +94,7 @@ function viewOrder(orderId) {
             // Check authentication
             const email = localStorage.getItem("plothive_loggedIn");
             if (!email) {
-                window.location.href = "Landing.html";
+                window.location.href = "index.html";
                 return;
             }
             
@@ -143,7 +143,7 @@ function viewOrder(orderId) {
         
         function confirmLogout() {
             localStorage.removeItem("plothive_loggedIn");
-            window.location.href = "Landing.html";
+            window.location.href = "index.html";
         }
         
         // Function to handle Plot application
@@ -210,4 +210,5 @@ function renderOrdersTable(orders, page = 1, itemsPerPage = 5) {
 }
 
 // Initialize with plots data instead of ordersData
+
 renderOrdersTable(plotsData);
